@@ -73,26 +73,30 @@
       </nav>
     <!-- <article> -->
             <div class="card large">
+            <div class="card-content white-text">
                     <!-- Card Content -->
-                  
-        <header style="text-align: center;">
+        <span class="card-title">Enter a room name to join or share the one shown below.</span>
+ <!-- <header style="text-align: center;">
             <h3>Enter a room name to join or share the one shown below.</h3>
-        </header>
-
+        </header> -->
       
 
-        <section class="experiment">
+        <!-- <section class="experiment"> -->
             <div class="make-center">
                 <input type="text" id="room-id" value="abcdef" autocorrect=off autocapitalize=off size=20>
+            </div>
+            <div id="videos-container"></div>
+            </div>
+            <div class="card-action">
                 <button id="open-room">Open Room</button>
                 <button id="join-room">Join Room</button>
                 <button id="open-or-join-room">Auto Open Or Join Room</button>
-
-                <div id="room-urls" style="text-align: center;display: none;background: #F1EDED;margin: 15px -10px;border: 1px solid rgb(189, 189, 189);border-left: 0;border-right: 0;"></div>
             </div>
+                <div id="room-urls" style="text-align: center;display: none;background: #F1EDED;margin: 15px -10px;border: 1px solid rgb(189, 189, 189);border-left: 0;border-right: 0;"></div>
+           
 
-            <div id="videos-container"></div>
-        </section>
+           
+        <!-- </section> -->
     </div>
         <script src="/dist/RTCMultiConnection.min.js"></script>
 
