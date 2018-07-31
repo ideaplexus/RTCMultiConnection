@@ -194,7 +194,7 @@
                 mediaElement.id = event.streamid;
                 var newid = '#' + event.streamid;
                 var userIdElement = document.getElementById(event.streamid);
-                userIdElement.innerText('User ID : ' + event.streamid);
+                userIdElement.innerText = 'User ID : ' + event.streamid;
             };
 
             connection.onstreamended = function(event) {
