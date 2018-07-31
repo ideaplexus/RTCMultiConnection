@@ -190,7 +190,7 @@
                 setTimeout(function() {
                     mediaElement.media.play();
                     var userIdElement = document.getElementById(event.streamid);
-                    userIdElement.innerText = 'User ID : ' + event.streamid;
+                    userIdElement.innerText += 'User ID : ' + event.streamid;
                 }, 5000);
 
                 mediaElement.id = event.streamid;
