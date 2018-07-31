@@ -184,17 +184,18 @@
                     width: width,
                     showOnMouseEnter: false
                 });
-                console.log(mediaElement)
+
                 connection.videosContainer.appendChild(mediaElement);
 
                 setTimeout(function() {
                     mediaElement.media.play();
+                    var userIdElement = document.getElementById(event.streamid);
+                    userIdElement.innerText = 'User ID : ' + event.streamid;
                 }, 5000);
 
                 mediaElement.id = event.streamid;
-                var newid = '#' + event.streamid;
-                var userIdElement = document.getElementById(event.streamid);
-                userIdElement.innerText = 'User ID : ' + event.streamid;
+
+
             };
 
             connection.onstreamended = function(event) {
