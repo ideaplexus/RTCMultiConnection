@@ -16,6 +16,7 @@
             object-fit: fill;
             width: 30%;
         }
+        
         button,
         input,
         select {
@@ -27,7 +28,7 @@
             font-size: 16px;
             outline: none;
         }
-
+        
         .make-center {
             text-align: center;
             padding: 5px 10px;
@@ -92,7 +93,7 @@
             document.getElementById('open-or-join-room').onclick = function() {
                 disableInputButtons();
                 connection.openOrJoin(document.getElementById('room-id').value, function(isRoomExists, roomid) {
-                    if(!isRoomExists) {
+                    if (!isRoomExists) {
                         showRoomURL(roomid);
                     }
                 });
@@ -101,14 +102,13 @@
             document.getElementById('btn-leave-room').onclick = function() {
                 this.disabled = true;
 
-                if(connection.isInitiator) {
+                if (connection.isInitiator) {
                     // use this method if you did NOT set "autoCloseEntireSession===true"
                     // for more info: https://github.com/muaz-khan/RTCMultiConnection#closeentiresession
                     connection.closeEntireSession(function() {
                         document.querySelector('h1').innerHTML = 'Entire session has been closed.';
                     });
-                }
-                else {
+                } else {
                     connection.leave();
                 }
             };
@@ -180,7 +180,7 @@
                 var width = parseInt(connection.videosContainer.clientWidth / 2) - 20;
                 var mediaElement = getMediaElement(event.mediaElement, {
                     title: event.userid,
-                    buttons: ['full-screen'],
+                    buttons: ['mute-audio', 'mute-video', 'full-screen', 'volume-slider', 'stop'],
                     width: width,
                     showOnMouseEnter: false
                 });
@@ -196,7 +196,7 @@
 
             connection.onstreamended = function(event) {
                 var mediaElement = document.getElementById(event.streamid);
-                if(mediaElement) {
+                if (mediaElement) {
                     mediaElement.parentNode.removeChild(mediaElement);
                 }
             };
@@ -213,10 +213,9 @@
             };
 
             connection.onclose = function() {
-                if(connection.getAllParticipants().length) {
+                if (connection.getAllParticipants().length) {
                     document.querySelector('h1').innerHTML = "You're still connected with: " + connection.getAllParticipants().join(', ');
-                }
-                else {
+                } else {
                     document.querySelector('h1').innerHTML = 'Seems like all participants left.';
                 }
             };
@@ -236,7 +235,7 @@
                 });
 
                 // don't display alert for moderator
-                if(connection.userid === event.userid) return;
+                if (connection.userid === event.userid) return;
                 document.querySelector('h1').innerHTML = 'Entire session has been closed by the moderator: ' + event.userid;
             };
 
@@ -297,23 +296,23 @@
             };
 
             var hashString = location.hash.replace('#', '');
-            if(hashString.length && hashString.indexOf('comment-') == 0) {
-              hashString = '';
+            if (hashString.length && hashString.indexOf('comment-') == 0) {
+                hashString = '';
             }
 
             var roomid = params.roomid;
-            if(!roomid && hashString.length) {
+            if (!roomid && hashString.length) {
                 roomid = hashString;
             }
 
-            if(roomid && roomid.length) {
+            if (roomid && roomid.length) {
                 document.getElementById('room-id').value = roomid;
                 localStorage.setItem(connection.socketMessageEvent, roomid);
 
                 // auto-join-room
                 (function reCheckRoomPresence() {
                     connection.checkPresence(roomid, function(isRoomExists) {
-                        if(isRoomExists) {
+                        if (isRoomExists) {
                             connection.join(roomid);
                             return;
                         }
@@ -327,4 +326,5 @@
         </script>
     </article>
 </body>
+
 </html>
