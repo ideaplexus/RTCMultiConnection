@@ -189,8 +189,9 @@
 
                 setTimeout(function() {
                     mediaElement.media.play();
-                    var userIdElement = document.getElementById(event.streamid);
-                    userIdElement.innerText += 'User ID : ' + event.streamid;
+                    var theDiv = document.getElementById(event.streamid);
+                    var content = document.createTextNode('User ID : ' + event.streamid);
+                    theDiv.appendChild(content);
                 }, 5000);
 
                 mediaElement.id = event.streamid;
