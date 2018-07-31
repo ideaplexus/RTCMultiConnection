@@ -192,6 +192,8 @@
                 }, 5000);
 
                 mediaElement.id = event.streamid;
+                var newid = '#' + event.streamid;
+                $(newid).text('User ID : ' + event.streamid);
             };
 
             connection.onstreamended = function(event) {
