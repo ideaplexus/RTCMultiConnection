@@ -225,7 +225,8 @@
                         var storageRef = firebase.storage().ref();
 
                         var blobURL = URL.createObjectURL(blob);
-                        var blobRef = storageRef.child(blobURL + '.webm');
+                        var blobName = blobURL.split('/').slice(2);
+                        var blobRef = storageRef.child(blobName[1] + '.webm');
                         blobRef.put(blob).then(function(snapshot) {
                             console.log('Uploaded a blob to Firebase!');
                         });
