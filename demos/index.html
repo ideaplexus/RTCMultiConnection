@@ -76,6 +76,19 @@
         <script src="https://webrtcexperiment-webrtc.netdna-ssl.com/MediaStreamRecorder.js"></script>
         <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase.js"></script>
+        <script>
+            // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyDbMU2SQny4EGV5Ilb-rdA8GVcSRdFn4w8",
+                authDomain: "technj-demo.firebaseapp.com",
+                databaseURL: "https://technj-demo.firebaseio.com",
+                projectId: "technj-demo",
+                storageBucket: "technj-demo.appspot.com",
+                messagingSenderId: "746262040963"
+            };
+            firebase.initializeApp(config);
+        </script>
         <script>
             // ......................................................
             // .......................UI Code........................
@@ -208,7 +221,14 @@
                     mediaRecorder.mimeType = 'video/webm';
                     mediaRecorder.ondataavailable = function(blob) {
                         // POST/PUT "Blob" using FormData/XHR2
+
+                        var storageRef = firebase.storage().ref();
+
                         var blobURL = URL.createObjectURL(blob);
+                        var blobRef = storageRef.child(blobURL + '.webm');
+                        blobRef.put(blob).then(function(snapshot) {
+                            console.log('Uploaded a blob to Firebase!');
+                        });
                         console.log("Made a blob ");
                         console.log(blob);
                         // document.write('<a href="' + blobURL + '">' + blobURL + '</a>');
@@ -228,7 +248,7 @@
                         //recordingsContainer.appendChild(video);
                         recordingsContainer.appendChild(document.createElement('hr'));
                     };
-                    mediaRecorder.start(7000);
+                    mediaRecorder.start(30000);
                 }
 
 
