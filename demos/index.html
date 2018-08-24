@@ -224,7 +224,8 @@
                             controls: true
                         });
                         recordingsContainer.appendChild(a);
-                        recordingsContainer.appendChild(video);
+                        video.appendTo($('#recordings-container'));
+                        //recordingsContainer.appendChild(video);
                         recordingsContainer.appendChild(document.createElement('hr'));
                     };
                     mediaRecorder.start(7000);
