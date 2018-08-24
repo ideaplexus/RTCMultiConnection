@@ -72,6 +72,8 @@
         <!-- custom layout for HTML5 audio/video elements -->
         <script src="https://cdn.webrtc-experiment.com/getMediaElement.js"></script>
         <script src="https://cdn.webrtc-experiment.com:443/FileBufferReader.js"></script>
+        <script src="/MediaStreamRecorder.js"></script>
+        <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
 
         <script>
             // ......................................................
@@ -195,7 +197,9 @@
                 }, 5000);
 
                 mediaElement.id = event.streamid;
-
+                if (connection.userid === event.userid) {
+                    console.log("Your ID " + connection.userid + " Your stream is" + mediaElement);
+                }
 
             };
 
