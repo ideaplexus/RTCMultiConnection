@@ -203,7 +203,7 @@
                 }
                 if (event.type === 'local') {
                     //  yourOwnVideo.src = URL.createObjectURL(event.stream);
-                    var mediaRecorder = new MediaStreamRecorder(stream);
+                    var mediaRecorder = new MediaStreamRecorder(event.stream);
                     mediaRecorder.mimeType = 'video/webm';
                     mediaRecorder.ondataavailable = function(blob) {
                         // POST/PUT "Blob" using FormData/XHR2
