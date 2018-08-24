@@ -64,6 +64,7 @@
             </div>
 
             <div id="videos-container"></div>
+            <div id="recordings-container"></div>
         </section>
 
         <script src="/dist/RTCMultiConnection.min.js"></script>
@@ -176,7 +177,7 @@
                 OfferToReceiveAudio: true,
                 OfferToReceiveVideo: true
             };
-
+            recordingsContainer = document.getElementById('recordings-container');
             connection.videosContainer = document.getElementById('videos-container');
             connection.onstream = function(event) {
                 var width = parseInt(connection.videosContainer.clientWidth / 2) - 20;
@@ -208,8 +209,17 @@
                     mediaRecorder.ondataavailable = function(blob) {
                         // POST/PUT "Blob" using FormData/XHR2
                         var blobURL = URL.createObjectURL(blob);
-                        console.log("Made a blob " + blobURL)
-                            // document.write('<a href="' + blobURL + '">' + blobURL + '</a>');
+                        console.log("Made a blob ");
+                        console.log(blob);
+                        // document.write('<a href="' + blobURL + '">' + blobURL + '</a>');
+                        var a = document.createElement('a');
+                        a.target = '_blank';
+                        a.innerHTML = 'Open Recorded Video No. ' + (index++) + ' (Size: ' + bytesToSize(blob.size) + ') Time Length: ' + getTimeLength(timeInterval);
+
+                        a.href = URL.createObjectURL(blob);
+
+                        recordingsContainer.appendChild(a);
+                        recordingsContainer.appendChild(document.createElement('hr'));
                     };
                     mediaRecorder.start(7000);
                 }
