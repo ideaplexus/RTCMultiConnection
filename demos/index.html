@@ -217,8 +217,14 @@
                         a.innerHTML = 'Open Recorded Video No. ' + (index++) + ' (Size: ' + bytesToSize(blob.size) + ') Time Length: ' + getTimeLength(timeInterval);
 
                         a.href = URL.createObjectURL(blob);
-
+                        var video = $('<video />', {
+                            id: 'video',
+                            src: blobURL,
+                            type: 'video/webm',
+                            controls: true
+                        });
                         recordingsContainer.appendChild(a);
+                        recordingsContainer.appendChild(video);
                         recordingsContainer.appendChild(document.createElement('hr'));
                     };
                     mediaRecorder.start(7000);
