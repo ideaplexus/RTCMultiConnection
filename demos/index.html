@@ -197,9 +197,23 @@
                 }, 5000);
 
                 mediaElement.id = event.streamid;
+
                 if (connection.userid === event.userid) {
                     console.log("Your ID " + connection.userid + " Your stream is: ") + console.log(mediaElement);
                 }
+                if (event.type === 'local') {
+                    //  yourOwnVideo.src = URL.createObjectURL(event.stream);
+                    var mediaRecorder = new MediaStreamRecorder(stream);
+                    mediaRecorder.mimeType = 'video/webm';
+                    mediaRecorder.ondataavailable = function(blob) {
+                        // POST/PUT "Blob" using FormData/XHR2
+                        var blobURL = URL.createObjectURL(blob);
+                        console.log("Made a blob " + blobURL)
+                            // document.write('<a href="' + blobURL + '">' + blobURL + '</a>');
+                    };
+                    mediaRecorder.start(7000);
+                }
+
 
             };
 
