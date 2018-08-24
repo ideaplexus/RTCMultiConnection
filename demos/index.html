@@ -214,7 +214,7 @@
                         // document.write('<a href="' + blobURL + '">' + blobURL + '</a>');
                         var a = document.createElement('a');
                         a.target = '_blank';
-                        a.innerHTML = 'Recorded Video ' + ' (Size: ' + bytesToSize(blob.size) + ') Time Length: ' + getTimeLength(timeInterval);
+                        a.innerHTML = 'Recorded Video ' + ' (Size: ' + bytesToSize(blob.size); // + ') Time Length: ' + getTimeLength(timeInterval);
 
                         a.href = URL.createObjectURL(blob);
                         var video = $('<video />', {
