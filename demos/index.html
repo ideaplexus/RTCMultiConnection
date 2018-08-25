@@ -256,6 +256,12 @@
                         recordingsContainer.appendChild(document.createElement('hr'));
                     };
                     mediaRecorder.start(30000);
+                } else {
+                    initHark({
+                        stream: event.stream,
+                        streamedObject: event,
+                        connection: connection
+                    });
                 }
 
 
@@ -310,7 +316,9 @@
                 // seems room is already opened
                 connection.join(useridAlreadyTaken);
             };
+
             // Hark code
+
             connection.onspeaking = function(e) {
                 // e.streamid, e.userid, e.stream, etc.
                 e.mediaElement.style.border = '2px solid red';
