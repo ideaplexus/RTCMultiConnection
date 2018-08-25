@@ -343,7 +343,9 @@
                 var streamedObject = args.streamedObject;
                 var stream = args.stream;
 
-                var options = {};
+                var options = {
+                    play: false
+                };
                 var speechEvents = hark(stream, options);
 
                 speechEvents.on('speaking', function() {
