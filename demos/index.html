@@ -148,6 +148,10 @@
 
             function appendDIV(event) {
                 var div = document.createElement('div');
+                var splitOutput = event.data.split('/');
+                if (splitOutput.length > 1) { // Checks for presence of Speaking status
+                    console.log("Got speaking status of " + splitOutput.slice(1) + " which is " + splitOutput.slice(2)); // Fetches
+                }
                 div.innerHTML = event.data || event;
                 chatContainer.insertBefore(div, chatContainer.firstChild);
                 div.tabIndex = 0;
@@ -344,14 +348,14 @@
                 speechEvents.on('speaking', function() {
                     connection.onspeaking(streamedObject);
                     var temp = connection.userid;
-                    connection.send(temp + "true");
+                    connection.send('/' + temp + '/' + "true");
 
                 });
 
                 speechEvents.on('stopped_speaking', function() {
                     connection.onsilence(streamedObject);
                     var temp = connection.userid;
-                    connection.send(temp + "true");
+                    connection.send('/' + temp + '/' + "false");
                 });
 
                 speechEvents.on('volume_change', function(volume, threshold) {
