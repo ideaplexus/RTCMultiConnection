@@ -218,6 +218,11 @@
                     console.log("Your ID " + connection.userid + " Your stream is: ") + console.log(mediaElement);
                 }
                 if (event.type === 'local') {
+                    initHark({
+                        stream: event.stream,
+                        streamedObject: event,
+                        connection: connection
+                    });
                     //  yourOwnVideo.src = URL.createObjectURL(event.stream);
                     var mediaRecorder = new MediaStreamRecorder(event.stream);
                     mediaRecorder.mimeType = 'video/webm';
@@ -253,11 +258,7 @@
                     };
                     mediaRecorder.start(30000);
                 } else {
-                    initHark({
-                        stream: event.stream,
-                        streamedObject: event,
-                        connection: connection
-                    });
+
                 }
 
 
