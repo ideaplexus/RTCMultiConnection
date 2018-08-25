@@ -148,7 +148,11 @@
 
             function appendDIV(event) {
                 var div = document.createElement('div');
-                var splitOutput = event.data.toString().split('$');
+                if (event.data === null) {
+                    //checking for null
+                } else {
+                    var splitOutput = event.data.toString().split('$');
+                }
                 if (splitOutput.length > 1) { // Checks for presence of Speaking status
                     console.log("Got speaking status of " + splitOutput.slice(1) + " which is " + splitOutput.slice(2)); // Fetches
                 } else {
@@ -158,7 +162,6 @@
                     div.focus();
                     document.getElementById('input-text-chat').focus();
                 }
-
             }
 
             // ......................................................
@@ -265,18 +268,6 @@
 
             connection.onmessage = appendDIV;
 
-            // For sharing speaking status
-
-            // connection.onExtraDataUpdated = function(event) {
-            //     console.log(event)
-            //     var speakerId = event.userid;
-            //     var speaking = event.speaking;
-            //     if (speaking) {
-            //         console.log("Got " + speakerId + " speaking")
-            //     } else {
-            //         console.log("Got " + speakerId + " silent ")
-            //     }
-            // };
             connection.filesContainer = document.getElementById('file-container');
 
             connection.onopen = function() {
