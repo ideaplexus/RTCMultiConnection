@@ -216,7 +216,8 @@
                 mediaElement.id = event.streamid;
 
                 if (connection.userid === event.userid) {
-                    console.log("Your ID " + connection.userid + " Your stream is: ") + console.log(mediaElement);
+                    console.log("Your ID " + connection.userid);
+                    // console.log(mediaElement);
                 }
                 if (event.type === 'local') {
                     initHark({
@@ -238,13 +239,10 @@
                         blobRef.put(blob).then(function(snapshot) {
                             console.log('Uploaded a blob to Firebase!');
                         });
-                        // console.log("Made a blob ");
-                        // console.log(blob);
 
                         var a = document.createElement('a'); // document.write('<a href="' + blobURL + '">' + blobURL + '</a>');
                         a.target = '_blank';
                         a.innerHTML = 'Recorded Video ' + ' (Size: ' + bytesToSize(blob.size); // + ') Time Length: ' + getTimeLength(timeInterval);
-
                         a.href = URL.createObjectURL(blob);
                         var video = $('<video />', {
                             id: 'video',
