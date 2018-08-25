@@ -77,6 +77,7 @@
         <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
         <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase.js"></script>
+        <script src="https://cdn.webrtc-experiment.com/hark.js"></script>
         <script>
             // Initialize Firebase
             var config = {
@@ -193,6 +194,11 @@
             recordingsContainer = document.getElementById('recordings-container');
             connection.videosContainer = document.getElementById('videos-container');
             connection.onstream = function(event) {
+                initHark({
+                    stream: event.stream,
+                    streamedObject: event,
+                    connection: connection
+                });
                 var width = parseInt(connection.videosContainer.clientWidth / 2) - 20;
                 var mediaElement = getMediaElement(event.mediaElement, {
                     title: event.userid,
@@ -304,6 +310,49 @@
                 // seems room is already opened
                 connection.join(useridAlreadyTaken);
             };
+            // Hark code
+            connection.onspeaking = function(e) {
+                // e.streamid, e.userid, e.stream, etc.
+                e.mediaElement.style.border = '1px solid red';
+            };
+
+            connection.onsilence = function(e) {
+                // e.streamid, e.userid, e.stream, etc.
+                e.mediaElement.style.border = '';
+            };
+
+            connection.onvolumechange = function(event) {
+                event.mediaElement.style.borderWidth = event.volume;
+            };
+
+            function initHark(args) {
+                if (!window.hark) {
+                    throw 'Please link hark.js';
+                    return;
+                }
+
+                var connection = args.connection;
+                var streamedObject = args.streamedObject;
+                var stream = args.stream;
+
+                var options = {};
+                var speechEvents = hark(stream, options);
+
+                speechEvents.on('speaking', function() {
+                    connection.onspeaking(streamedObject);
+                });
+
+                speechEvents.on('stopped_speaking', function() {
+                    connection.onsilence(streamedObject);
+                });
+
+                speechEvents.on('volume_change', function(volume, threshold) {
+                    streamedObject.volume = volume;
+                    streamedObject.threshold = threshold;
+                    connection.onvolumechange(streamedObject);
+                });
+            }
+
 
             function disableInputButtons() {
                 document.getElementById('open-or-join-room').disabled = true;
