@@ -194,11 +194,7 @@
             recordingsContainer = document.getElementById('recordings-container');
             connection.videosContainer = document.getElementById('videos-container');
             connection.onstream = function(event) {
-                initHark({
-                    stream: event.stream,
-                    streamedObject: event,
-                    connection: connection
-                });
+
                 var width = parseInt(connection.videosContainer.clientWidth / 2) - 20;
                 var mediaElement = getMediaElement(event.mediaElement, {
                     title: event.userid,
