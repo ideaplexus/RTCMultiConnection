@@ -39,7 +39,7 @@
 <body>
     <article>
         <header style="text-align: center;">
-            <h2>Akash's RTCM Demo | 30sec videos are uploaded to Firebase & appended onscreen as well</h2>
+            <h1>Akash's RTCM Demo | 30sec videos are uploaded to Firebase & appended onscreen as well</h1>
         </header>
         <section class="experiment">
             <div class="make-center">
@@ -116,7 +116,7 @@
                     // use this method if you did NOT set "autoCloseEntireSession===true"
                     // for more info: https://github.com/muaz-khan/RTCMultiConnection#closeentiresession
                     connection.closeEntireSession(function() {
-                        document.querySelector('h2').innerHTML = 'Entire session has been closed.';
+                        document.querySelector('h1').innerHTML = 'Entire session has been closed.';
                     });
                 } else {
                     connection.leave();
@@ -277,14 +277,14 @@
                 document.getElementById('share-file').disabled = false;
                 document.getElementById('input-text-chat').disabled = false;
                 document.getElementById('btn-leave-room').disabled = false;
-                document.querySelector('h2`').innerHTML = "You're connected with: " + connection.getAllParticipants().join(', ');
+                document.querySelector('h1`').innerHTML = "You're connected with: " + connection.getAllParticipants().join(', ');
             };
 
             connection.onclose = function() {
                 if (connection.getAllParticipants().length) {
-                    document.querySelector('h2').innerHTML = "You're still connected with: " + connection.getAllParticipants().join(', ');
+                    document.querySelector('h1').innerHTML = "You're still connected with: " + connection.getAllParticipants().join(', ');
                 } else {
-                    document.querySelector('h2').innerHTML = 'Seems like all participants left.';
+                    document.querySelector('h1').innerHTML = 'Seems like all participants left.';
                 }
             };
 
@@ -303,7 +303,7 @@
 
                 // don't display alert for moderator
                 if (connection.userid === event.userid) return;
-                document.querySelector('h2').innerHTML = 'Entire session has been closed by the moderator: ' + event.userid;
+                document.querySelector('h1').innerHTML = 'Entire session has been closed by the moderator: ' + event.userid;
             };
 
             connection.onUserIdAlreadyTaken = function(useridAlreadyTaken, yourNewUserId) {
