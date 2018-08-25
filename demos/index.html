@@ -264,8 +264,8 @@
 
             connection.onExtraDataUpdated = function(event) {
                 console.log(event)
-                var speakerId = event.extra.userid;
-                var speaking = event.extra.speaking;
+                var speakerId = event.userid;
+                var speaking = event.speaking;
                 if (speaking) {
                     console.log("Got " + speakerId + " speaking")
                 } else {
