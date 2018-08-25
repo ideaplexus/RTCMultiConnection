@@ -277,7 +277,7 @@
                 document.getElementById('share-file').disabled = false;
                 document.getElementById('input-text-chat').disabled = false;
                 document.getElementById('btn-leave-room').disabled = false;
-                document.querySelector('h1`').innerHTML = "You're connected with: " + connection.getAllParticipants().join(', ');
+                document.querySelector('h1').innerHTML = "You're connected with: " + connection.getAllParticipants().join(', ');
             };
 
             connection.onclose = function() {
