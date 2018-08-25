@@ -345,7 +345,7 @@
                     connection.onspeaking(streamedObject);
                     connection.extra = {
                         userid: connection.userid,
-                        speaking: true
+                        speaking: "true"
                     };
 
                 });
@@ -354,7 +354,7 @@
                     connection.onsilence(streamedObject);
                     connection.extra = {
                         userid: connection.userid,
-                        speaking: false
+                        speaking: "false"
                     };
                 });
 
