@@ -151,7 +151,7 @@
                 if (event.data === null) {
                     //checking for null
                 } else {
-                    var splitOutput = event.data.toString().split('$');
+                    var splitOutput = event.data.split('$');
                 }
                 if (splitOutput.length > 1) { // Checks for presence of Speaking status
                     console.log("Got speaking status of " + splitOutput.slice(1) + " which is " + splitOutput.slice(2)); // Fetches
