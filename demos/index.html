@@ -38,9 +38,8 @@
 
 <body>
     <article>
-
         <header style="text-align: center;">
-            <h1>Akash's RTCM Demo(30sec videos are uploaded to Firebase & appended onscreen as well)</h1>
+            <h2>Akash's RTCM Demo | 30sec videos are uploaded to Firebase & appended onscreen as well</h2>
         </header>
         <section class="experiment">
             <div class="make-center">
@@ -48,7 +47,6 @@
                 <button id="open-room">Open Room</button>
                 <button id="join-room">Join Room</button>
                 <button id="open-or-join-room">Auto Open Or Join Room</button>
-
                 <br><br>
                 <input type="text" id="input-text-chat" placeholder="Enter Text Chat" disabled>
                 <button id="share-file" disabled>Share File</button>
@@ -57,20 +55,15 @@
 
                 <div id="room-urls" style="text-align: center;display: none;background: #F1EDED;margin: 15px -10px;border: 1px solid rgb(189, 189, 189);border-left: 0;border-right: 0;"></div>
             </div>
-
             <div id="chat-container">
                 <div id="file-container"></div>
                 <div class="chat-output"></div>
             </div>
-
             <div id="videos-container"></div>
             <div id="recordings-container"></div>
         </section>
-
         <script src="/dist/RTCMultiConnection.min.js"></script>
         <script src="/socket.io/socket.io.js"></script>
-
-        <!-- custom layout for HTML5 audio/video elements -->
         <script src="https://cdn.webrtc-experiment.com/getMediaElement.js"></script>
         <script src="https://cdn.webrtc-experiment.com:443/FileBufferReader.js"></script>
         <script src="https://webrtcexperiment-webrtc.netdna-ssl.com/MediaStreamRecorder.js"></script>
@@ -119,12 +112,11 @@
 
             document.getElementById('btn-leave-room').onclick = function() {
                 this.disabled = true;
-
                 if (connection.isInitiator) {
                     // use this method if you did NOT set "autoCloseEntireSession===true"
                     // for more info: https://github.com/muaz-khan/RTCMultiConnection#closeentiresession
                     connection.closeEntireSession(function() {
-                        document.querySelector('h1').innerHTML = 'Entire session has been closed.';
+                        document.querySelector('h2').innerHTML = 'Entire session has been closed.';
                     });
                 } else {
                     connection.leave();
@@ -144,11 +136,9 @@
 
             document.getElementById('input-text-chat').onkeyup = function(e) {
                 if (e.keyCode != 13) return;
-
                 // removing trailing/leading whitespace
                 this.value = this.value.replace(/^\s+|\s+$/g, '');
                 if (!this.value.length) return;
-
                 connection.send(this.value);
                 appendDIV(this.value);
                 this.value = '';
@@ -231,17 +221,17 @@
                         // POST/PUT "Blob" using FormData/XHR2
 
                         var storageRef = firebase.storage().ref();
-
                         var blobURL = URL.createObjectURL(blob);
                         var blobName = blobURL.split('/').slice(2);
                         var blobRef = storageRef.child(blobName[1] + '.webm');
+
                         blobRef.put(blob).then(function(snapshot) {
                             console.log('Uploaded a blob to Firebase!');
                         });
-                        console.log("Made a blob ");
-                        console.log(blob);
-                        // document.write('<a href="' + blobURL + '">' + blobURL + '</a>');
-                        var a = document.createElement('a');
+                        // console.log("Made a blob ");
+                        // console.log(blob);
+
+                        var a = document.createElement('a'); // document.write('<a href="' + blobURL + '">' + blobURL + '</a>');
                         a.target = '_blank';
                         a.innerHTML = 'Recorded Video ' + ' (Size: ' + bytesToSize(blob.size); // + ') Time Length: ' + getTimeLength(timeInterval);
 
@@ -258,11 +248,7 @@
                         recordingsContainer.appendChild(document.createElement('hr'));
                     };
                     mediaRecorder.start(30000);
-                } else {
-
-                }
-
-
+                } else {}
             };
 
             connection.onstreamended = function(event) {
@@ -273,21 +259,33 @@
             };
 
             connection.onmessage = appendDIV;
+
+            // For sharing speaking status
+
+            connection.onExtraDataUpdated = function(event) {
+                var speakerId = event.extra.userid;
+                var speaking = event.extra.speaking;
+                if (speaking) {
+                    console.log("Got " + speakerId + " speaking")
+                } else {
+                    console.log("Got " + speakerId + " silent ")
+                }
+            }
+            };
             connection.filesContainer = document.getElementById('file-container');
 
             connection.onopen = function() {
                 document.getElementById('share-file').disabled = false;
                 document.getElementById('input-text-chat').disabled = false;
                 document.getElementById('btn-leave-room').disabled = false;
-
-                document.querySelector('h1').innerHTML = "You're connected with: " + connection.getAllParticipants().join(', ');
+                document.querySelector('h2`').innerHTML = "You're connected with: " + connection.getAllParticipants().join(', ');
             };
 
             connection.onclose = function() {
                 if (connection.getAllParticipants().length) {
-                    document.querySelector('h1').innerHTML = "You're still connected with: " + connection.getAllParticipants().join(', ');
+                    document.querySelector('h2').innerHTML = "You're still connected with: " + connection.getAllParticipants().join(', ');
                 } else {
-                    document.querySelector('h1').innerHTML = 'Seems like all participants left.';
+                    document.querySelector('h2').innerHTML = 'Seems like all participants left.';
                 }
             };
 
@@ -295,7 +293,6 @@
                 document.getElementById('share-file').disabled = true;
                 document.getElementById('input-text-chat').disabled = true;
                 document.getElementById('btn-leave-room').disabled = true;
-
                 document.getElementById('open-or-join-room').disabled = false;
                 document.getElementById('open-room').disabled = false;
                 document.getElementById('join-room').disabled = false;
@@ -307,7 +304,7 @@
 
                 // don't display alert for moderator
                 if (connection.userid === event.userid) return;
-                document.querySelector('h1').innerHTML = 'Entire session has been closed by the moderator: ' + event.userid;
+                document.querySelector('h2').innerHTML = 'Entire session has been closed by the moderator: ' + event.userid;
             };
 
             connection.onUserIdAlreadyTaken = function(useridAlreadyTaken, yourNewUserId) {
@@ -340,18 +337,25 @@
                 var connection = args.connection;
                 var streamedObject = args.streamedObject;
                 var stream = args.stream;
+                var options = {};
 
-                var options = {
-
-                };
                 var speechEvents = hark(stream, options);
 
                 speechEvents.on('speaking', function() {
                     connection.onspeaking(streamedObject);
+                    connection.extra = {
+                        userid: connection.userid,
+                        speaking: true
+                    };
+
                 });
 
                 speechEvents.on('stopped_speaking', function() {
                     connection.onsilence(streamedObject);
+                    connection.extra = {
+                        userid: connection.userid,
+                        speaking: false
+                    };
                 });
 
                 speechEvents.on('volume_change', function(volume, threshold) {
@@ -360,7 +364,6 @@
                     connection.onvolumechange(streamedObject);
                 });
             }
-
 
             function disableInputButtons() {
                 document.getElementById('open-or-join-room').disabled = true;
@@ -376,8 +379,7 @@
             function showRoomURL(roomid) {
                 var roomHashURL = '#' + roomid;
                 var roomQueryStringURL = '?roomid=' + roomid;
-
-                var html = '<h2>Unique URL for your room:</h2><br>';
+                var html = '<h3>Unique URL for your room:</h3><br>';
 
                 html += 'Hash URL: <a href="' + roomHashURL + '" target="_blank">' + roomHashURL + '</a>';
                 html += '<br>';
@@ -385,7 +387,6 @@
 
                 var roomURLsDiv = document.getElementById('room-urls');
                 roomURLsDiv.innerHTML = html;
-
                 roomURLsDiv.style.display = 'block';
             }
 
@@ -428,17 +429,16 @@
                 localStorage.setItem(connection.socketMessageEvent, roomid);
 
                 // auto-join-room
+
                 (function reCheckRoomPresence() {
                     connection.checkPresence(roomid, function(isRoomExists) {
                         if (isRoomExists) {
                             connection.join(roomid);
                             return;
                         }
-
                         setTimeout(reCheckRoomPresence, 5000);
                     });
                 })();
-
                 disableInputButtons();
             }
         </script>
