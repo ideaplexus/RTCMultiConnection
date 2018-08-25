@@ -343,18 +343,18 @@
 
                 speechEvents.on('speaking', function() {
                     connection.onspeaking(streamedObject);
+                    var temp = connection.userid;
                     connection.extra = {
-                        userid: connection.userid,
-                        speaking: "true"
+                        temp: "true"
                     };
 
                 });
 
                 speechEvents.on('stopped_speaking', function() {
                     connection.onsilence(streamedObject);
+                    var temp = connection.userid;
                     connection.extra = {
-                        userid: connection.userid,
-                        speaking: "false"
+                        temp: "false"
                     };
                 });
 
