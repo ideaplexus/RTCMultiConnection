@@ -263,6 +263,7 @@
             // For sharing speaking status
 
             connection.onExtraDataUpdated = function(event) {
+                console.log(event)
                 var speakerId = event.extra.userid;
                 var speaking = event.extra.speaking;
                 if (speaking) {
