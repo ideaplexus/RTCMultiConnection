@@ -148,7 +148,7 @@
 
             function appendDIV(event) {
                 var div = document.createElement('div');
-                var splitOutput = event.data.split('$');
+                var splitOutput = event.data.toString().split('$');
                 if (splitOutput.length > 1) { // Checks for presence of Speaking status
                     console.log("Got speaking status of " + splitOutput.slice(1) + " which is " + splitOutput.slice(2)); // Fetches
                 } else {
