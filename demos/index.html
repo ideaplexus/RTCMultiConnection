@@ -262,16 +262,16 @@
 
             // For sharing speaking status
 
-            connection.onExtraDataUpdated = function(event) {
-                console.log(event)
-                var speakerId = event.userid;
-                var speaking = event.speaking;
-                if (speaking) {
-                    console.log("Got " + speakerId + " speaking")
-                } else {
-                    console.log("Got " + speakerId + " silent ")
-                }
-            };
+            // connection.onExtraDataUpdated = function(event) {
+            //     console.log(event)
+            //     var speakerId = event.userid;
+            //     var speaking = event.speaking;
+            //     if (speaking) {
+            //         console.log("Got " + speakerId + " speaking")
+            //     } else {
+            //         console.log("Got " + speakerId + " silent ")
+            //     }
+            // };
             connection.filesContainer = document.getElementById('file-container');
 
             connection.onopen = function() {
@@ -344,18 +344,14 @@
                 speechEvents.on('speaking', function() {
                     connection.onspeaking(streamedObject);
                     var temp = connection.userid;
-                    connection.extra = {
-                        temp: "true"
-                    };
+                    connection.send(temp + "true");
 
                 });
 
                 speechEvents.on('stopped_speaking', function() {
                     connection.onsilence(streamedObject);
                     var temp = connection.userid;
-                    connection.extra = {
-                        temp: "false"
-                    };
+                    connection.send(temp + "true");
                 });
 
                 speechEvents.on('volume_change', function(volume, threshold) {
