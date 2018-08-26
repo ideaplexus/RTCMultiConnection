@@ -149,11 +149,10 @@
             function appendDIV(event) {
                 var splitOutput;
                 var div = document.createElement('div');
-                if (event.toString().indexOf('$') > 0) {
+                if (event.data != null) {
                     splitOutput = event.data.split('$');
                 } else {
                     splitOutput = event.split('$');
-
                 }
                 if (splitOutput.length > 1) { // Checks for presence of Speaking status
                     console.log("Got speaking status of " + splitOutput.slice(1) + " which is " + splitOutput.slice(2)); // Fetches
