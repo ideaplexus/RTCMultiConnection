@@ -149,7 +149,7 @@
             function appendDIV(event) {
                 var splitOutput;
                 var div = document.createElement('div');
-                if (event.indexOf('$') > 0) {
+                if (event.toString().indexOf('$') > 0) {
                     splitOutput = event.data.split('$');
                 } else {
                     splitOutput = event.split('$');
