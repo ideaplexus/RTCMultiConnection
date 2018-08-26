@@ -157,9 +157,14 @@
                 }
                 if (splitOutput.length > 1) { // Checks for presence of Speaking status
                     console.log(splitOutput);
-                    console.log("Got speaking status of " + splitOutput[1] + " which is " + splitOutput.slice[2]); // Fetches
+                    console.log("Got speaking status of " + splitOutput[1] + " which is " + splitOutput[2]); // Fetches
                     // Code to highlight everybody's boxes
-
+                    streamId = splitOutput[3];
+                    if (splitOutput[2]) {
+                        $("#" + streamId).css('border', '3px solid red');
+                    } else {
+                        $("#" + streamId).css('border', '');
+                    }
                 } else {
                     div.innerHTML = event.data || event;
                     chatContainer.insertBefore(div, chatContainer.firstChild);
@@ -343,14 +348,13 @@
                 speechEvents.on('speaking', function() {
                     connection.onspeaking(streamedObject);
                     var temp = connection.userid;
-                    connection.send('$' + temp + '$' + "true");
-                    console.log("Stream ID" + streamedObject.streamid);
+                    connection.send('$' + temp + '$' + "true" + '$' + streamedObject.streamid);
                 });
 
                 speechEvents.on('stopped_speaking', function() {
                     connection.onsilence(streamedObject);
                     var temp = connection.userid;
-                    connection.send('$' + temp + '$' + "false");
+                    connection.send('$' + temp + '$' + "false" + '$' + streamedObject.streamid);
                 });
 
                 speechEvents.on('volume_change', function(volume, threshold) {
