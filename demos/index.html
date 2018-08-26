@@ -156,7 +156,10 @@
                     splitOutput = event.split('$');
                 }
                 if (splitOutput.length > 1) { // Checks for presence of Speaking status
-                    console.log("Got speaking status of " + splitOutput.slice(1) + " which is " + splitOutput.slice(2)); // Fetches
+                    console.log(splitOutput);
+                    console.log("Got speaking status of " + splitOutput.slice(0) + " which is " + splitOutput.slice(1)); // Fetches
+                    // Code to highlight everybody's boxes
+
                 } else {
                     div.innerHTML = event.data || event;
                     chatContainer.insertBefore(div, chatContainer.firstChild);
@@ -217,7 +220,7 @@
 
                 if (connection.userid === event.userid) {
                     console.log("Your ID " + connection.userid);
-                    // console.log(mediaElement);
+                    console.log(mediaElement);
                 }
                 if (event.type === 'local') {
                     initHark({
