@@ -160,7 +160,7 @@
                     console.log("Got speaking status of " + splitOutput[1] + " which is " + splitOutput[2]); // Fetches
                     // Code to highlight everybody's boxes
                     streamId = splitOutput[3];
-                    if (splitOutput[2]) {
+                    if (splitOutput[2] === "true") {
                         $("#" + streamId).css('border', '3px solid red');
                     } else {
                         $("#" + streamId).css('border', '');
