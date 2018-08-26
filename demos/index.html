@@ -157,7 +157,7 @@
                 }
                 if (splitOutput.length > 1) { // Checks for presence of Speaking status
                     console.log(splitOutput);
-                    console.log("Got speaking status of " + splitOutput.slice(0) + " which is " + splitOutput.slice(1)); // Fetches
+                    console.log("Got speaking status of " + splitOutput[1] + " which is " + splitOutput.slice[2]); // Fetches
                     // Code to highlight everybody's boxes
 
                 } else {
@@ -344,7 +344,7 @@
                     connection.onspeaking(streamedObject);
                     var temp = connection.userid;
                     connection.send('$' + temp + '$' + "true");
-
+                    console.log("Stream ID" + streamedObject.streamid);
                 });
 
                 speechEvents.on('stopped_speaking', function() {
